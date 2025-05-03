@@ -187,9 +187,9 @@ access your backstage app in your browser
 http://ip:3000
 
 
-bonus option 3 
-guide in case of ubuntu 
-install these packages first
+## bonus option 3 
+guide in case of ubuntu  
+install these packages first  
 ```
 apt update -y && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
@@ -200,10 +200,10 @@ yarn set version stable
 yarn install
 apt install docker.io -y
 ```
-then use this command to create a new backstage application 
+then use this command to create a new backstage application  
 
 ```
 npx @backstage/create-app@latest
 ```
-enter yes the name of the app whatever you want to give 
-after that u can follow udemy course and the documentaion
+enter yes the name of the app whatever you want to give  
+after that u can follow udemy course and the documentaion  
