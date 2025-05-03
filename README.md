@@ -33,15 +33,32 @@ GITHUB_CLIENT_ID
 GITHUB_CLIENT_SECRET
 GITHUB_TOKEN
 ```
-## Now lets got to the place where you have cloned the backstage
-Question do u have your nodejs installed ? if not install that
+# now u have two options 
+option 1 already created instace with backstage and most of the things ready just have to do credentials  
+option 2 clone the above backstage app repo and start by Yourself  
+bonus option 3 create a the whole backstage app by yourself and start from scratch using documentaion and udemy course  
+## option 1 in our aws account in hydrabad region we have t2 large instance use that instance i have given the key side by side with this repo link
+- create your github credentials
+- change in the users.yaml file and add your own user in that file
+- export your creds as env variable
+how to do these more details in next option  
+no need to do other steps just these 3 steps  
+
+## option 2 Now lets got to the place where you have cloned the backstage
+Question do u have your nodejs installed ? 
 ```
+node -v
+```
+if not install than
+```
+apt update -y && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
 sudo -E bash nodesource_setup.sh
 sudo apt-get install -y nodejs
 npm install -g corepack
 yarn set version stable
 yarn install
+apt install docker.io -y
 ```
 First go to the directory of backstage 
 ```
@@ -52,8 +69,67 @@ Now make some changes in app.config.yaml file
 vi app.config.yaml
 ```
 In app.config.yaml, change three urls there in which it has ip addresses to localhost with those same ports and everything u just need to change ips 
+check if you have app.config.local.yaml file if not create a new one
+```
+vi app.config.local.yaml
+```
+paste this content
+```
+# Backstage override configuration for your local development environment
+app:
+  listen:
+    host: 0.0.0.0
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: ${GITHUB_CLIENT_ID}
+        clientSecret: ${GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            # Matches the GitHub username with the Backstage user entity name.
+            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
+            - resolver: usernameMatchingUserEntityName
 
-Before starting the app u will also need to start a container of postgres use this command 
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN} # this will use the environment variable GITHUB_TOKEN
+backend:
+  database:
+    client: pg
+    connection:
+      host: localhost
+      port: 5432
+      user: backstage
+      password: backstage
+      database: backstage
+techdocs:
+  builder: 'local'
+  generator:
+    runIn: local
+  publisher:
+    type: 'local'
+
+
+catalog:
+  locations:
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    - type: file
+      target: /root/backstage-app/catalog/entities/users.yaml
+      rules:
+        - allow: [User]
+    - type: file
+      target: /root/backstage-app/catalog/entities/groups.yaml
+      rules:
+        - allow: [Group]
+    - type: url
+      target: https://github.com/sahil7879/backstage-software-templates/blob/main/python-app/template.yaml
+      rules:
+        - allow: [Template]
+```
+You will also need to start a container of postgres for backend, use this command 
 ``` bash
 docker run -d \
   --name backstage-postgres \
@@ -69,6 +145,22 @@ vi catalog/entities/users.yaml
 ```
 Change the name part to the username of your github
 ```
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sahil7879
+spec:
+  memberOf: [developer]
+```
+in case of adding a new user use this  and change the user in the second part
+```
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sahil7879
+spec:
+  memberOf: [developer]
+---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
@@ -93,3 +185,25 @@ webpack compiled successfully
 
 access your backstage app in your browser 
 http://ip:3000
+
+
+bonus option 3 
+guide in case of ubuntu 
+install these packages first
+```
+apt update -y && apt upgrade -y
+curl -fsSL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
+sudo apt-get install -y nodejs
+npm install -g corepack
+yarn set version stable
+yarn install
+apt install docker.io -y
+```
+then use this command to create a new backstage application 
+
+```
+npx @backstage/create-app@latest
+```
+enter yes the name of the app whatever you want to give 
+after that u can follow udemy course and the documentaion
