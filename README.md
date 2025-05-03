@@ -36,7 +36,7 @@ GITHUB_TOKEN
 # now u have two options 
 option 1 already created instace with backstage and most of the things ready just have to do credentials  
 option 2 clone the above backstage app repo and start by Yourself  
-bonus option 3 create a the whole backstage app by yourself and start from scratch using documentaion and udemy course  
+bonus option 3 create the whole backstage app by yourself and start from scratch using documentaion and udemy course  
 ## option 1 in our aws account in hydrabad region we have t2 large instance use that instance i have given the key side by side with this repo link
 - create your github credentials
 - change in the users.yaml file and add your own user in that file
