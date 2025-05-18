@@ -41,6 +41,7 @@ do these changes
 ```
 -- under backend:
 - same as in app in here too change baseurl localhost --> public ip of vm
+- do the same for cors block change origin localhost --> public ip of vm 
 - under baseurl in listen uncomment host and change it to 0.0.0.0
 - the whole file should look something like this
 ```
@@ -63,5 +64,21 @@ backend:
   listen:
     port: 7007
     # Uncomment the following host directive to bind to specific interfaces
-      host: 0.0.0.0
+    host: 0.0.0.0
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: http://40.192.33.246:3000
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
 ```
+now access backstage in the web browser at public-ip:3000
