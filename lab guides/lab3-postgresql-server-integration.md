@@ -1,6 +1,6 @@
 # postgre server integretion
-Right now we have sqllite for the backend and that is in memory db so it will give us problem if we restart our backstage  
-Now we need to change it to postgre so it will be non volatile  
+Right now we have SQLite for the backend and that is in-memory db so it will lose all data on restart    
+Now we need to change it to PostgreSQL so it will be persistent  
 For that what we can do, we can start a container for the db  
 But first we will give our user access to use docker so that we do not change our user again and again  
 ```
@@ -16,6 +16,7 @@ now lets add our postgre container
 ```
 docker run -d \
   --name backstage-postgres \
+  --restart always \
   -e POSTGRES_USER=backstage \
   -e POSTGRES_PASSWORD=backstage \
   -e POSTGRES_DB=backstage \
@@ -33,5 +34,14 @@ vi app.config.local.yaml
 ```
 add this block for integration 
 ```
-
+backend:
+  database:
+    client: pg
+    connection:
+      host: localhost
+      port: 5432
+      user: backstage
+      password: backstage
+      database: backstage
 ```
+this block will make sure you are connected to postgre container 
