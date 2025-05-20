@@ -7,7 +7,7 @@ Step 1
 - scroll down to the end in developer options  
 - select oauth app  
 - configure it similar to this  
-![ github oauth app Screenshot](images/screenshot1.png)
+![ github oauth app Screenshot](/images/screenshot1.png)
 - copy client id and client secret and save them at a safe place
 
 Step 2
