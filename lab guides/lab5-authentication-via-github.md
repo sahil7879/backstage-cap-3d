@@ -90,3 +90,11 @@ catalog:
     - type: file
       target: /home/ubuntu/backstage-app/backstage/catalog/entities/Users.yaml
 ```
+### Step 6
+now to check whether the authentication work start the app
+```
+yarn start
+```
+at the homepage you will see auth with github  
+enter username and password and you will be able to log in  
+now check the setting there you will see your profile logo and username  
