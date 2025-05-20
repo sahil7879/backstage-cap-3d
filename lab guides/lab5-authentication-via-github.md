@@ -1,7 +1,7 @@
 # authentication setup using github 
 official documentation page : https://backstage.io/docs/auth/#sign-in-configuration
 ## For this you have to create github oauth app first 
-Step 1  
+### Step 1  
 - go to your github homepage  
 - click on the profile icon at the top right corner  
 - scroll down to the end in developer options  
@@ -10,7 +10,7 @@ Step 1
 ![ github oauth app Screenshot](/images/screenshot1.png)
 - copy client id and client secret and save them at a safe place
 
-Step 2
+### Step 2
 edit app.config.local.yaml file and add this block 
 ```
 auth:
@@ -30,7 +30,7 @@ auth:
             - resolver: usernameMatchingUserEntityName
 ```
 
-Step 3  
+### Step 3  
 Now add frontend part of the authentication   
 edit this file packages/app/src/App.tsx and add  
 ```
@@ -56,8 +56,37 @@ const app = createApp({
 });
 ```
 also check you are not duplicating anything
-Step 4  
+### Step 4  
 now lets add the backend too 
 ```
 yarn --cwd packages/backend add @backstage/plugin-auth-backend-module-github-provider
+```
+and add this line in the file at this location packages/backend/src/index.ts
+```
+backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
+```
+
+### Step 5
+Now lets add a user in catalog so that we can authenticate
+add a folder catalog/entities in the root directory of the app
+and add a file name users in entities folder
+enter these details in the file 
+```
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: YOUR GITHUB USERNAME
+spec:
+  memberOf: [guests]
+```
+now add the location of the file in app.config.local.yaml file 
+```
+catalog:
+  rules:
+    rules:
+    - allow: [User, Group, Component, API, Location, Template]
+  locations:
+    - type: file
+      target: /home/ubuntu/backstage-app/backstage/catalog/entities/Users.yaml
 ```
