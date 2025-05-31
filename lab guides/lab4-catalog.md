@@ -57,27 +57,3 @@ we can also add multiple repo simultaneously by adding multiple
 - type: url
   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/components/artist-lookup-component.yaml
 ```
-# Option 3 
-using github discovery
-in the same file app.config.local.yaml add this block 
-```
-providers:
-    github:
-      # the provider ID can be any camelCase string
-      providerId:
-        organization: 'backstage' # string
-        catalogPath: '/catalog-info.yaml' # string
-        filters:
-          branch: 'main' # string
-          repository: '.*' # Regex
-        schedule: # same options as in SchedulerServiceTaskScheduleDefinition
-          # supports cron, ISO duration, "human duration" as used in code
-          frequency: { minutes: 30 }
-          # supports ISO duration, "human duration" as used in code
-          timeout: { minutes: 3 }
-```
-but this alone will not work you will also need to add some plugins
-first of all run this command to install the plugin
-```
-yarn --cwd packages/backend add @backstage/plugin-catalog-backend-module-github
-```
