@@ -44,3 +44,37 @@ const LogoIcon = () => {
 export default LogoIcon;
 
 ```
+for theme change add a new dir in components  
+```
+backstage\packages\app\src\themes\customtheme.ts
+
+import {
+  createBaseThemeOptions,
+  createUnifiedTheme,
+  palettes,
+ 
+} from '@backstage/theme';
+export const myTheme = createUnifiedTheme({
+  ...createBaseThemeOptions({
+    palette: {
+      ...palettes.dark,
+      primary: {
+        main: '#111',
+      },
+      secondary: {
+        main: '#111',
+      },
+      background: {
+        default: '#2f4c9c',
+        paper: '#432f9c',
+      },
+    }})
+});
+```
+to add this theme 
+do these imports in App.tsx
+```
+import LightIcon from '@material-ui/icons/WbSunny';
+import { UnifiedThemeProvider} from '@backstage/theme';
+import { myTheme } from './themes/customtheme';
+```
