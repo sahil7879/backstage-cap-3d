@@ -34,7 +34,7 @@ packages/app/src/app.tsx
 ```
 //add anywherein the import section of the file 
 import CustomCatalogPage  from './components/catalog/customentitypage';
-in the flatroute 
+//in the flatroute 
 <flatroute>
   <Route path="/catalog" element={<CustomCatalogPage />} />
 
