@@ -1,4 +1,5 @@
-create a new file in 
+create a new file in packages/app/src/components/catalog
+customentitypage.tsx
 ```
 import {
   Content,
@@ -27,4 +28,14 @@ const CustomCatalogPage = () => (
   </Page>
 );
 export default CustomCatalogPage;
+```
+edit this file 
+packages/app/src/app.tsx
+```
+//add anywherein the import section of the file 
+import CustomCatalogPage  from './components/catalog/customentitypage';
+in the flatroute 
+<flatroute>
+  <Route path="/catalog" element={<CustomCatalogPage />} />
+
 ```
