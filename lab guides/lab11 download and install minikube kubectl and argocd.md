@@ -5,7 +5,9 @@ curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikub
 sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
 minikube start
-// you can check the instalation using this command 
+// you can check the instalation using this command
+kubectl get nodes
+kubectl get pods -n kube-system 
 ```
 installing kubectl
 ```
