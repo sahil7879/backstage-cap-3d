@@ -6,8 +6,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-a
 
 minikube start
 // you can check the instalation using this command
-kubectl get nodes
-kubectl get pods -n kube-system 
+
 ```
 installing kubectl
 ```
@@ -18,7 +17,9 @@ installing kubectl
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-// you can check the instalation using this command 
+// you can check the instalation using this command
+kubectl get nodes
+kubectl get pods -n kube-system 
 ```
   installing argo  
 keep in mind that you are installing argocd in kubernetes using deployments  so install kubernetes first
